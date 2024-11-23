@@ -36,7 +36,7 @@ When you create a new note that uses this template, you would see the following 
 
 ![image](https://github.com/user-attachments/assets/e8aa6227-da59-4376-84fb-d6120ce647b4)
 
-There, you can set the values for your variables or keep their defaults. Upon save, the Note will be updated. Don't worry, the block that sets the variables will not be carried over to the template:
+There, you can set the values for your variables or keep their defaults. Upon save, the Note will be updated. Don't worry, the block that sets the variables will not be carried over to the template, and your note will be clean, containing only the actual content that was intended to display:
 
 ![image](https://github.com/user-attachments/assets/cdc4a6af-9ac5-4997-9546-502c6040c699)
 
@@ -44,7 +44,7 @@ There, you can set the values for your variables or keep their defaults. Upon sa
 ## How to install
 
 1. Downlaod `main.js`, `styles.css`, `manifest.json` files from the latest release page.
-2. Creane new folder inside `VaultFolder/.obsidian/plugins/` named  `obsidian-varinote` . If plugins folder doesn't exist, then create it manually. 
+2. Create new folder inside `VaultFolder/.obsidian/plugins/` named  `obsidian-varinote` . If plugins folder doesn't exist, then create it manually. 
 3. Move downloaded files into `/obsidian-varinote` folder. 
 4. Enable the plugin in ObsidianMD. 
 
