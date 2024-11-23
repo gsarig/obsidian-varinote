@@ -1,0 +1,16 @@
+.varinote-modal-content {
+	& .setting-item-info {
+		flex: unset;
+		width: 30%;
+		min-width: 120px;
+	}
+
+	& .setting-item-control {
+		flex: unset;
+		width: 100%;
+
+		& input {
+			width: 100%;
+		}
+	}
+}

@@ -1,0 +1,11 @@
+{
+	"id": "obsidian-varinote",
+	"name": "Varinote",
+	"version": "1.0.0",
+	"minAppVersion": "0.15.0",
+	"description": "Add variables in Templates and set their values during the Note creation.",
+	"author": "Giorgos Sarigiannidis",
+	"authorUrl": "https://github.com/gsarig",
+	"fundingUrl": "https://obsidian.md/pricing",
+	"isDesktopOnly": false
+}
