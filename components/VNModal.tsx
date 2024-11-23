@@ -56,6 +56,14 @@ export class VNModal extends Modal {
 				.onClick(() => {
 					this.close();
 				}));
+
+		// Add event listener for Enter key to trigger the button
+		contentEl.addEventListener('keydown', (event) => {
+			if (event.key === 'Enter') {
+				event.preventDefault();  // Prevent default form submission behavior
+				this.close();
+			}
+		});
 	}
 
 	onClose() {

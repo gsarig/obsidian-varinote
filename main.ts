@@ -1,21 +1,12 @@
-import { Plugin, MarkdownView, TFile, Notice } from 'obsidian';
-import { VNModal } from './components/VNModal';
+import {Plugin, MarkdownView, TFile} from 'obsidian';
+import {VNModal} from './components/VNModal';
 import labels from './labels.json';
 import './styles.css';
 
-interface VarinoteSettings {
-	mySetting: string;
-}
-
-const DEFAULT_SETTINGS: VarinoteSettings = {
-	mySetting: 'default'
-}
-
+// noinspection JSUnusedGlobalSymbols
 export default class Varinote extends Plugin {
-	settings: VarinoteSettings;
 
 	async onload() {
-		await this.loadSettings();
 
 		// Check if layout is already ready
 		if (this.app.workspace.layoutReady) {
@@ -30,14 +21,6 @@ export default class Varinote extends Plugin {
 		// Detach listeners when the plugin is unloaded
 		this.app.workspace.off('layout-ready', this.onLayoutReady);
 		this.app.workspace.off('file-open', this.onFileOpen);
-	}
-
-	async loadSettings() {
-		this.settings = Object.assign({}, DEFAULT_SETTINGS, await this.loadData());
-	}
-
-	async saveSettings() {
-		await this.saveData(this.settings);
 	}
 
 	onLayoutReady = () => {
@@ -58,7 +41,7 @@ export default class Varinote extends Plugin {
 			const templateFolder = this.getTemplateFolderPath();
 
 			if (templateFolder && fileToCheck.path.startsWith(templateFolder)) {
-				console.log("Skipping template file:", fileToCheck.path);
+				// Skipping template file.
 				return;
 			}
 
@@ -92,13 +75,20 @@ export default class Varinote extends Plugin {
 		return properties;
 	}
 
-	triggerModal(file: TFile, message: string, description: string, regex: RegExp, properties: Record<string, { label: string, defaultValue: string }>) {
-		const modal = new VNModal(this.app, message, description, () => {
-			this.app.vault.read(file).then(content => {
+	triggerModal(file: TFile, message: string, description: string, regex: RegExp, properties: Record<string, {
+		label: string,
+		defaultValue: string
+	}>) {
+		const modal = new VNModal(this.app, message, description, async () => {
+			try {
+				const content = await this.app.vault.read(file);
 				let updatedContent = content.replace(regex, '').trim();
 				updatedContent = this.replacePlaceholders(updatedContent, modal.formValues);
-				this.app.vault.modify(file, updatedContent);
-			});
+
+				await this.app.vault.modify(file, updatedContent);
+			} catch (error) {
+				console.error("Error modifying the file:", error);
+			}
 		}, properties);
 		modal.closeButtonLabel = labels.closeButtonText; // Pass the close button label
 		modal.open();

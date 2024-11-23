@@ -1,6 +1,6 @@
-# Varinote
+# Varinote (Variables in Notes)
 
-Varinote is a plugin for [Obsidian](https://obsidian.md) that allows you to define custom properties with optional default values inside your notes. These properties can then be edited through a modal interface.
+Varinote is a plugin for [Obsidian](https://obsidian.md) that allows you to define variables with optional default values inside your Templates. These variables can then be edited through a modal interface when you add a new note that uses this template.
 
 ![varinote](https://github.com/user-attachments/assets/75687446-d8ac-496c-a8f2-e78117868472)
 
