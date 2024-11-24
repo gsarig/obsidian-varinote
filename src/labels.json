@@ -1,9 +1,9 @@
 {
 	"modalTitle": "Set the variable values",
-	"modalDescription": "Please fill in the form fields below to set the values of the variables:",
+	"modalDescription": "Please fill in the form fields below to set the values of the variables on this note.",
 	"ctaBtn": "Set the values",
-	"triggerModal": "Set the values of the variables in the file",
+	"triggerModal": "Set the variable values on this note",
 	"errorModifyFile": "Error modifying the file.",
-	"noBlockFound": "No Varinote block found in the active file.",
+	"noBlockFound": "No Varinote block found on this note.",
 	"noActiveFile": "No active file to trigger the modal for."
 }

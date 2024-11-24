@@ -2,6 +2,14 @@
 
 Varinote is a plugin for [Obsidian](https://obsidian.md) that allows you to define variables with optional default values inside your Templates. These variables can then be edited through a modal interface when you add a new note that uses this template.
 
+✔️ Create a template.
+
+✔️ Set the variables.
+
+✔️ Reference the variables that you've created in the content of your template.
+
+✔️ Create a note that uses this template or insert the template in an existing note and use the `Varinote` command in your Command Palette. 
+
 ![varinote](https://github.com/user-attachments/assets/75687446-d8ac-496c-a8f2-e78117868472)
 
 ## Usage
@@ -21,15 +29,15 @@ For example, assuming that you have the following template:
 ````markdown
 ```varinote
 
-my_first_variable:: Label of the first variable|Default value for first variable
-my_second_variable:: Label of the second variable
+var_1:: Label 1|Value 1
+var_2:: Label 2
 
 ```
 
 ## My text with variables:
 
-* This is the value of my first variable: {{$my_first_variable}}
-* This is the value of the second: {{$my_second_variable}}.
+* This is the value of my first variable: {{$var_1}}
+* This is the value of the second: {{$var_2}}.
 
 ````
 When you create a new note that uses this template, you would see the following prompt:
@@ -44,7 +52,7 @@ There, you can set the values for your variables or keep their defaults. Upon sa
 ## How to install
 
 1. Downlaod `main.js`, `styles.css`, `manifest.json` files from the latest release page.
-2. Create new folder inside `VaultFolder/.obsidian/plugins/` named  `obsidian-varinote` . If plugins folder doesn't exist, then create it manually. 
+2. Create new folder inside your vault's `/.obsidian/plugins/` named  `obsidian-varinote` . If plugins folder doesn't exist, then create it manually. 
 3. Move downloaded files into `/obsidian-varinote` folder. 
 4. Enable the plugin in ObsidianMD. 
 

@@ -2,7 +2,7 @@ import { App, PluginSettingTab } from 'obsidian';
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import Varinote from '../main';
-import VarinoteSettingsComponent from './VarinoteSettingsComponent';
+import InfoPanel from './InfoPanel';
 
 export class VarinoteSettings extends PluginSettingTab {
 	app: App;
@@ -19,6 +19,6 @@ export class VarinoteSettings extends PluginSettingTab {
 		containerEl.empty();
 
 		const root = createRoot(containerEl);
-		root.render(<VarinoteSettingsComponent />);
+		root.render(<InfoPanel />);
 	}
 }
