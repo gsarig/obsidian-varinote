@@ -1,12 +1,16 @@
 import {Plugin, MarkdownView, TFile, Notice} from 'obsidian';
 import {VNModal} from './components/VNModal';
 import labels from './labels.json';
+import {VarinoteSettings} from './settings/Settings';
 import './styles.css';
 
 // noinspection JSUnusedGlobalSymbols
 export default class Varinote extends Plugin {
 
 	async onload() {
+
+		// Register the settings tab
+		this.addSettingTab(new VarinoteSettings(this.app, this));
 
 		// Register a custom command to trigger the modal
 		this.addCommand({
