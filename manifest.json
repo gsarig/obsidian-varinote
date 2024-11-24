@@ -1,6 +1,6 @@
 {
 	"id": "obsidian-varinote",
-	"name": "Varinote (Variables in Notes)",
+	"name": "Varinote",
 	"version": "1.0.0",
 	"minAppVersion": "1.7.7",
 	"description": "Add variables in Templates and set their values on-the-fly during the Note creation.",

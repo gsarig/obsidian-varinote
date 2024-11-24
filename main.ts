@@ -1,4 +1,4 @@
-import {Plugin, MarkdownView, TFile} from 'obsidian';
+import {Plugin, MarkdownView, TFile, Notice} from 'obsidian';
 import {VNModal} from './components/VNModal';
 import labels from './labels.json';
 import './styles.css';
@@ -7,6 +7,13 @@ import './styles.css';
 export default class Varinote extends Plugin {
 
 	async onload() {
+
+		// Register a custom command to trigger the modal
+		this.addCommand({
+			id: 'trigger-modal',
+			name: labels.triggerModal,
+			callback: () => this.triggerModalCommand(),
+		});
 
 		// Check if layout is already ready
 		if (this.app.workspace.layoutReady) {
@@ -51,9 +58,7 @@ export default class Varinote extends Plugin {
 
 				if (varinoteMatch) {
 					const properties = this.parseVarinoteProperties(varinoteMatch[1]);
-					const description = labels.modalDescription; // Using the description from JSON
-					const message = labels.modalTitle.replace("{{fileName}}", fileToCheck.name); // Dynamic title based on file name
-					this.triggerModal(fileToCheck, message, description, varinoteBlockRegex, properties);
+					this.triggerModal(fileToCheck, labels.modalTitle, labels.modalDescription, varinoteBlockRegex, properties);
 				}
 			});
 		}
@@ -87,11 +92,30 @@ export default class Varinote extends Plugin {
 
 				await this.app.vault.modify(file, updatedContent);
 			} catch (error) {
-				console.error("Error modifying the file:", error);
+				new Notice(labels.errorModifyFile);
 			}
 		}, properties);
-		modal.closeButtonLabel = labels.closeButtonText; // Pass the close button label
+		modal.closeButtonLabel = labels.ctaBtn; // Pass the close button label
 		modal.open();
+	}
+
+	triggerModalCommand() {
+		const activeFile = this.app.workspace.getActiveFile();
+		if (activeFile) {
+			const varinoteBlockRegex = /```varinote\n([\s\S]*?)\n```/;
+			this.app.vault.read(activeFile).then(content => {
+				const varinoteMatch = content.match(varinoteBlockRegex);
+
+				if (varinoteMatch) {
+					const properties = this.parseVarinoteProperties(varinoteMatch[1]);
+					this.triggerModal(activeFile, labels.modalTitle, labels.modalDescription, varinoteBlockRegex, properties);
+				} else {
+					new Notice(labels.noBlockFound);
+				}
+			});
+		} else {
+			new Notice(labels.noActiveFile);
+		}
 	}
 
 	getTemplateFolderPath(): string | null {
