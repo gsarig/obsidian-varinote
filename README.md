@@ -61,8 +61,8 @@ Selecting it, and assuming that the template includes a valid `Varinote` block, 
 ## How to install
 
 1. Downlaod `main.js`, `styles.css`, `manifest.json` files from the latest release page.
-2. Create new folder inside your vault's `/.obsidian/plugins/` named  `obsidian-varinote` . If plugins folder doesn't exist, then create it manually. 
-3. Move downloaded files into `/obsidian-varinote` folder. 
+2. Create new folder inside your vault's `/.obsidian/plugins/` named  `varinote` . If plugins folder doesn't exist, then create it manually. 
+3. Move downloaded files into the `/varinote` folder. 
 4. Enable the plugin in ObsidianMD. 
 
 ## Feedback and Support
