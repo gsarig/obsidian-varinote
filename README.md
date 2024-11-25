@@ -40,13 +40,15 @@ var_2:: Label 2
 * This is the value of the second: {{$var_2}}.
 
 ````
-When you create a new note that uses this template, you would see the following prompt:
+When you create a new note that uses this template, you should see the following prompt:
 
 ![varinote2](https://github.com/user-attachments/assets/555be312-e131-4c05-a4b1-fcd05b1b1dde)
 
 There, you can set the values for your variables or keep their defaults. Upon save, the Note will be updated. Don't worry, the block that sets the variables will not be carried over to the template, and your note will be clean, containing only the actual content that was intended to display:
 
 ![varinote](https://github.com/user-attachments/assets/f0ccab6a-a693-4c0f-a4ce-4c687530b980)
+
+Assigning [Templates](https://help.obsidian.md/Plugins/Templates) to Notes can be done using plugins like [Daily notes](https://help.obsidian.md/Plugins/Daily+notes) or [Templater](https://github.com/SilentVoid13/Templater). If you insert a template into an existing Note (e.g. via Templater), you can open the [Command Palette](https://help.obsidian.md/Plugins/Command+palette) and find the `Varinote:` command. Selecting it, and assuming that the template includes the `Varinote` block, will set the note's variables.
 
 ## How to install
 
