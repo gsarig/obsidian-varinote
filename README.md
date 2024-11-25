@@ -48,7 +48,11 @@ There, you can set the values for your variables or keep their defaults. Upon sa
 
 ![varinote](https://github.com/user-attachments/assets/f0ccab6a-a693-4c0f-a4ce-4c687530b980)
 
-Assigning [Templates](https://help.obsidian.md/Plugins/Templates) to Notes can be done using plugins like [Daily notes](https://help.obsidian.md/Plugins/Daily+notes) or [Templater](https://github.com/SilentVoid13/Templater). If you insert a template into an existing Note (e.g. via Templater), you can open the [Command Palette](https://help.obsidian.md/Plugins/Command+palette) and find the `Varinote:` command. Selecting it, and assuming that the template includes the `Varinote` block, will set the note's variables.
+Assigning [Templates](https://help.obsidian.md/Plugins/Templates) to Notes can be done using plugins like [Daily notes](https://help.obsidian.md/Plugins/Daily+notes) or [Templater](https://github.com/SilentVoid13/Templater). If you insert a template into an existing Note (e.g. via Templater), you can open the [Command Palette](https://help.obsidian.md/Plugins/Command+palette) and find the `Varinote:` command. 
+
+![image](https://github.com/user-attachments/assets/de2cbb62-e5bc-4327-bb1f-daac26309ed2)
+
+Selecting it, and assuming that the template includes a valid `Varinote` block, will set the note's variables.
 
 ## How to install
 
