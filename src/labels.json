@@ -5,5 +5,7 @@
 	"triggerModal": "Set the variable values on this note",
 	"errorModifyFile": "Error modifying the file.",
 	"noBlockFound": "No Varinote block found on this note.",
-	"noActiveFile": "No active file to trigger the modal for."
+	"noActiveFile": "No active file to trigger the modal for.",
+	"copy": "Copy",
+	"copied": "Copied to clipboard!"
 }

@@ -2,14 +2,15 @@ export const settingStyles: string = `
 .varinote-settings-container {
 	position: relative;
 }
-.varinote-settings-container .varinote-codeblock {
+.varinote-codeblock {
 	position: relative;
 	background-color: #444;
 	color: #fff;
 	border-radius: 5px;
 	padding: 0.5rem 1rem;
+	font-size: 90%;
 }
-.varinote-settings-container .copy-button {
+.varinote-copy-button {
 	position: absolute;
 	right: 0.5em;
 	top: 0.5em;
@@ -20,10 +21,10 @@ export const settingStyles: string = `
 	padding: .2em 1em;
 	opacity: 0;
 }
-.varinote-settings-container .varinote-codeblock:hover .copy-button {
+.varinote-codeblock:hover .varinote-copy-button {
 	opacity: 1;
 }
-.varinote-settings-container .notice {
+.varinote-notice {
 	position: absolute;
 	display: inline-block;
 	top: 0.5em;
@@ -36,13 +37,16 @@ export const settingStyles: string = `
 	transition: opacity 0.5s;
 	opacity: 0;
 	width: fit-content;
+	font-size: 90%;
 }
-.varinote-settings-container .notice.show {
+.varinote-notice.show {
 	opacity: 1;
 }
 .varinote-settings-container p code {
-	background: #444;
+	background: #555;
 	color: #fff;
 	padding: 0.1em 0.3em;
 	border-radius: 4px;
+	font-size: 90%;
+}
 `;

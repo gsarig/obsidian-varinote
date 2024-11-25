@@ -1,10 +1,11 @@
 import React, { useState, useCallback } from 'react';
 import Notice from './Notice';
+import labels from '../labels.json'
 
 // Utility function to copy text to clipboard
 const copyToClipboard = (text: string, showNotice: (message: string) => void) => {
 	navigator.clipboard.writeText(text).then(() => {
-		showNotice('Copied to clipboard!');
+		showNotice(labels.copied);
 	});
 };
 
@@ -26,9 +27,9 @@ const CodeBlock = ({ code }: { code: string }) => {
 		<div className="varinote-codeblock">
 			<Notice message={noticeMessage} visible={noticeVisible} />
 			<button
-				className="copy-button"
+				className="varinote-copy-button"
 				onClick={() => copyToClipboard(code, showNotice)}>
-				Copy
+				{labels.copy}
 			</button>
 			<pre>
 				<code>{code}</code>
