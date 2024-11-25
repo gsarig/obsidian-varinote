@@ -2,13 +2,17 @@
 
 Varinote is a plugin for [Obsidian](https://obsidian.md) that allows you to define variables with optional default values inside your Templates. These variables can then be edited through a modal interface when you add a new note that uses this template.
 
-✔️ Create a template.
+👉 Create a template
 
-✔️ Set the variables.
+👉 Set the variables using a simple syntax
+ 
+👉 Reference the variables in your template's content
+ 
+👉 Add a new note from this template
 
-✔️ Reference the variables that you've created in the content of your template.
+👉 Set the variable values in the prompt
 
-✔️ Create a note that uses this template or insert the template in an existing note and use the `Varinote` command in your Command Palette. 
+✔️ Done! Your note has been updated!
 
 ![varinote](https://github.com/user-attachments/assets/a6333a93-50a2-4b94-be09-da0996465aaa)
 
