@@ -6,7 +6,7 @@ export function injectStyles(styleElement: HTMLStyleElement | null): HTMLStyleEl
 	if (styleElement) return styleElement;
 
 	const style = document.createElement('style');
-	style.innerHTML = settingStyles;
+	style.textContent = settingStyles;
 	document.head.appendChild(style);
 
 	return style;
