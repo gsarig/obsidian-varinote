@@ -1,8 +1,8 @@
 import {MarkdownView, TFile} from 'obsidian';
 import {parseVarinoteProperties} from './parser';
-import {getTemplateFolderPath} from "./templateUtils";
-import {triggerModal} from "./triggerModal";
-import labels from '../labels.json';
+import {getTemplateFolderPath} from './templateUtils';
+import {triggerModal} from './triggerModal';
+import {getLabel} from './getLabel';
 
 export function processActiveFile(file?: TFile) {
 	const activeMarkdownView = this.app.workspace.getActiveViewOfType(MarkdownView);
@@ -22,7 +22,7 @@ export function processActiveFile(file?: TFile) {
 
 			if (varinoteMatch) {
 				const properties = parseVarinoteProperties(varinoteMatch[1]);
-				triggerModal(fileToCheck, labels.modalTitle, labels.modalDescription, varinoteBlockRegex, properties);
+				triggerModal(fileToCheck, getLabel('modalTitle'), getLabel('modalDescription'), varinoteBlockRegex, properties);
 			}
 		});
 	}

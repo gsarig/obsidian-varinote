@@ -7,5 +7,8 @@
 	"noBlockFound": "No Varinote block found on this note.",
 	"noActiveFile": "No active file to trigger the modal for.",
 	"copy": "Copy",
-	"copied": "Copied to clipboard!"
+	"copied": "Copied to clipboard!",
+	"sliderFieldInvalid": "Invalid configuration for {label}. Requires minimum, maximum, step, and default values.",
+	"sliderFieldInadequate": "Inadequate configuration for {label}. Ensure min, max, step, and default are numeric.",
+	"sliderFieldOutOfRange": "Default value for {label} is out of range."
 }

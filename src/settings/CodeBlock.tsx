@@ -1,16 +1,16 @@
-import React, { useState, useCallback } from 'react';
+import React, {useState, useCallback} from 'react';
 import Notice from './Notice';
-import labels from '../labels.json'
+import {getLabel} from '../utils/getLabel';
 
 // Utility function to copy text to clipboard
 const copyToClipboard = (text: string, showNotice: (message: string) => void) => {
 	navigator.clipboard.writeText(text).then(() => {
-		showNotice(labels.copied);
+		showNotice(getLabel('copied'));
 	});
 };
 
 // Define the CodeBlock component
-const CodeBlock = ({ code }: { code: string }) => {
+const CodeBlock = ({code}: { code: string }) => {
 	const [noticeVisible, setNoticeVisible] = useState(false);
 	const [noticeMessage, setNoticeMessage] = useState('');
 
@@ -25,11 +25,11 @@ const CodeBlock = ({ code }: { code: string }) => {
 
 	return (
 		<div className="varinote-codeblock">
-			<Notice message={noticeMessage} visible={noticeVisible} />
+			<Notice message={noticeMessage} visible={noticeVisible}/>
 			<button
 				className="varinote-copy-button"
 				onClick={() => copyToClipboard(code, showNotice)}>
-				{labels.copy}
+				{getLabel('copy')}
 			</button>
 			<pre>
 				<code>{code}</code>

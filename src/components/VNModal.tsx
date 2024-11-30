@@ -1,14 +1,15 @@
 import { App, Modal, Setting } from 'obsidian';
+import {createSettingsFromProperties} from '../utils/createSettingsFromProperties'
 
 export class VNModal extends Modal {
 	message: string;
 	description: string;
 	onCloseCallback: () => void;
-	properties: Record<string, { label: string, defaultValue: string }>;
+	properties: Record<string, { label: string, value: string }>;
 	formValues: Record<string, string>;
 	closeButtonLabel: string;
 
-	constructor(app: App, message: string, description: string, onCloseCallback: () => void, properties: Record<string, { label: string, defaultValue: string }>) {
+	constructor(app: App, message: string, description: string, onCloseCallback: () => void, properties: Record<string, { label: string, value: string }>) {
 		super(app);
 		this.message = message;
 		this.description = description;
@@ -18,7 +19,7 @@ export class VNModal extends Modal {
 
 		// Initialize form values with default values
 		Object.keys(properties).forEach(key => {
-			this.formValues[key] = properties[key].defaultValue || '';
+			this.formValues[key] = properties[key].value || '';
 		});
 
 		this.closeButtonLabel = "Close";  // Default value if not provided
@@ -38,16 +39,7 @@ export class VNModal extends Modal {
 			contentEl.createEl('p', { text: this.description });
 		}
 
-		Object.keys(this.properties).forEach(key => {
-			new Setting(contentEl)
-				.setName(this.properties[key].label)
-				.addText(text => {
-					text.setValue(this.properties[key].defaultValue);  // Pre-fill with default value
-					text.onChange(value => {
-						this.formValues[key] = value;
-					});
-				});
-		});
+		createSettingsFromProperties(contentEl, this.properties, this.formValues);
 
 		new Setting(contentEl)
 			.addButton(btn => btn

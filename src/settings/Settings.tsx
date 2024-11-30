@@ -4,7 +4,7 @@ import {createRoot} from 'react-dom/client';
 import Varinote from '../main';
 import {codeSamples} from './codeSamples';
 import CodeBlock from './CodeBlock';
-import labels from '../labels.json';
+import {getLabel} from '../utils/getLabel';
 import {injectStyles, handleHide} from './styleUtils';
 
 export class VarinoteSettings extends PluginSettingTab {
@@ -73,7 +73,7 @@ export class VarinoteSettings extends PluginSettingTab {
 		});
 		const commands = containerEl.createEl('ul').createEl('li');
 		commands.createEl('strong', {
-			text: `${labels.triggerModal}`,
+			text: getLabel('triggerModal'),
 		});
 		commands.createEl('span', {
 			text: ': Useful if you insert a template into an existing note, and you want to set the values of the variables.',

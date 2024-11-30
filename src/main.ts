@@ -1,8 +1,8 @@
 import {Plugin, TFile} from 'obsidian';
-import labels from './labels.json';
 import {VarinoteSettings} from './settings/Settings';
-import {triggerModalCommand} from "./commands/triggerModal";
+import {triggerModalCommand} from './commands/triggerModal';
 import {processActiveFile} from './utils/processActiveFile';
+import {getLabel} from './utils/getLabel';
 import '../styles.css';
 
 // noinspection JSUnusedGlobalSymbols
@@ -16,7 +16,7 @@ export default class Varinote extends Plugin {
 		// Register a custom command to trigger the modal
 		this.addCommand({
 			id: 'trigger-modal',
-			name: labels.triggerModal,
+			name: getLabel('triggerModal'),
 			callback: () => triggerModalCommand(),
 		});
 

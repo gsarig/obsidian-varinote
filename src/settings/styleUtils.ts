@@ -1,5 +1,3 @@
-// styleUtils.ts
-
 import { settingStyles } from './settingStyles';
 
 export function injectStyles(styleElement: HTMLStyleElement | null): HTMLStyleElement | null {

@@ -1,7 +1,7 @@
 import {Notice} from 'obsidian';
 import {parseVarinoteProperties} from '../utils/parser';
-import {triggerModal} from "../utils/triggerModal";
-import labels from '../labels.json';
+import {triggerModal} from '../utils/triggerModal';
+import {getLabel} from '../utils/getLabel';
 
 export function triggerModalCommand() {
 	const activeFile = this.app.workspace.getActiveFile();
@@ -12,12 +12,12 @@ export function triggerModalCommand() {
 
 			if (varinoteMatch) {
 				const properties = parseVarinoteProperties(varinoteMatch[1]);
-				triggerModal(activeFile, labels.modalTitle, labels.modalDescription, varinoteBlockRegex, properties);
+				triggerModal(activeFile, getLabel('modalTitle'), getLabel('modalDescription'), varinoteBlockRegex, properties);
 			} else {
-				new Notice(labels.noBlockFound);
+				new Notice(getLabel('noBlockFound'));
 			}
 		});
 	} else {
-		new Notice(labels.noActiveFile);
+		new Notice(getLabel('noActiveFile'));
 	}
 }
