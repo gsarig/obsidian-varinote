@@ -1,8 +1,6 @@
 import {Notice, Setting} from 'obsidian';
 import {getLabel} from '../utils/getLabel'
-
-// Define the DropdownOptions type
-type DropdownOptions = Record<string, string>;
+import {DropdownOptions} from "../types/dropdown";
 
 export function createDropdownField(
 	contentEl: HTMLElement,
@@ -22,12 +20,12 @@ export function createDropdownField(
 	const optionsArray = property.value.split(',').map(option => option.trim());
 	const options: DropdownOptions = {};
 
-	optionsArray.forEach((option, index) => {
-		const valueKey = `option_${index + 1}`;
-		options[valueKey] = option;
+	optionsArray.forEach(option => {
+		// Use the option as both the value and the display name
+		options[option] = option;
 	});
 
-	const valueKey = optionsArray.length > 0 ? 'option_1' : '';
+	const firstOption = optionsArray.length > 0 ? optionsArray[0] : '';
 
 	new Setting(contentEl)
 		.setName(property.label)
@@ -36,7 +34,7 @@ export function createDropdownField(
 				dropdown.addOption(value, displayName);
 			});
 
-			dropdown.setValue(valueKey);
+			dropdown.setValue(firstOption);
 
 			dropdown.onChange(value => {
 				formValues[key] = value;
