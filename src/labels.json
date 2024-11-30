@@ -10,5 +10,6 @@
 	"copied": "Copied to clipboard!",
 	"sliderFieldInvalid": "Invalid configuration for {label}. Requires minimum, maximum, step, and default values.",
 	"sliderFieldInadequate": "Inadequate configuration for {label}. Ensure min, max, step, and default are numeric.",
-	"sliderFieldOutOfRange": "Default value for {label} is out of range."
+	"sliderFieldOutOfRange": "Default value for {label} is out of range.",
+	"dropdownInvalidOptions": "No valid options provided for {label}."
 }

@@ -11,4 +11,5 @@ export type Labels = {
 	sliderFieldInvalid: string;
 	sliderFieldInadequate: string;
 	sliderFieldOutOfRange: string;
+	dropdownInvalidOptions: string;
 };

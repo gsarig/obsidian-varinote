@@ -5,4 +5,3 @@ export function getTemplateFolderPath(): string | null {
 	}
 	return null;
 }
-

@@ -1,4 +1,5 @@
-import {Setting} from 'obsidian';
+import {Notice, Setting} from 'obsidian';
+import {getLabel} from '../utils/getLabel'
 
 // Define the DropdownOptions type
 type DropdownOptions = Record<string, string>;
@@ -11,7 +12,9 @@ export function createDropdownField(
 ) {
 	// Check if value is empty or doesn't include a comma.
 	if (!property.value || !property.value.includes(',')) {
-		console.warn(`No valid options provided for ${property.label}. Exiting.`);
+		new Notice(getLabel('dropdownInvalidOptions', {
+			label: property.label
+		}));
 		return;
 	}
 
