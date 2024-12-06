@@ -2,10 +2,11 @@ import {createTextField} from '../fields/textField';
 import {createToggleField} from '../fields/toggleField';
 import {createDropdownField} from '../fields/dropdownField';
 import {createSliderField} from '../fields/sliderField';
+import {ExtendedPropertyMap} from "../types/properties";
 
 export function createSettingsFromProperties(
 	contentEl: HTMLElement,
-	properties: Record<string, { label: string, value: string, type?: string }>,
+	properties: ExtendedPropertyMap,
 	formValues: Record<string, string | number>
 ) {
 	Object.keys(properties).forEach(key => {
