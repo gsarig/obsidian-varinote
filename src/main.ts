@@ -26,15 +26,9 @@ export default class Varinote extends Plugin {
 		}
 
 		// Listen for file opening events
-		this.app.workspace.on('file-open', this.onFileOpen);
+		this.registerEvent(this.app.workspace.on('file-open', this.onFileOpen));
 	}
-
-	onunload() {
-		// Detach listeners when the plugin is unloaded
-		this.app.workspace.off('layout-ready', this.onLayoutReady);
-		this.app.workspace.off('file-open', this.onFileOpen);
-	}
-
+	
 	onLayoutReady = () => {
 		processActiveFile();
 	}
