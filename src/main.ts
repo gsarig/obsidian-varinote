@@ -22,20 +22,28 @@ export default class Varinote extends Plugin {
 
 		// Check if layout is already ready
 		if (this.app.workspace.layoutReady) {
-			this.onLayoutReady();
+			await this.onLayoutReady();
 		}
 
 		// Listen for file opening events
 		this.registerEvent(this.app.workspace.on('file-open', this.onFileOpen));
 	}
-	
-	onLayoutReady = () => {
-		processActiveFile();
+
+	onLayoutReady = async () => {
+		try {
+			await processActiveFile();
+		} catch (error) {
+			console.error("Error processing active file on layout ready:", error);
+		}
 	}
 
-	onFileOpen = (file: TFile | null) => {
+	onFileOpen = async (file: TFile | null) => {
 		if (file) {
-			processActiveFile(file);
+			try {
+				await processActiveFile(file);
+			} catch (error) {
+				console.error("Error processing active file:", error);
+			}
 		}
 	}
 }

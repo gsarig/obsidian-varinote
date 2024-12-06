@@ -4,7 +4,7 @@ import {getTemplateFolderPath} from './templateUtils';
 import {triggerModal} from './triggerModal';
 import {getLabel} from './getLabel';
 
-export function processActiveFile(file?: TFile) {
+export async function processActiveFile(file?: TFile) {
 	const activeMarkdownView = this.app.workspace.getActiveViewOfType(MarkdownView);
 	const fileToCheck = file || activeMarkdownView?.file;
 
@@ -16,7 +16,9 @@ export function processActiveFile(file?: TFile) {
 			return;
 		}
 
-		this.app.vault.read(fileToCheck).then((content: string) => {
+		try {
+			const content: string = await this.app.vault.read(fileToCheck);
+
 			const varinoteBlockRegex = /```varinote\n([\s\S]*?)\n```/;
 			const varinoteMatch = content.match(varinoteBlockRegex);
 
@@ -24,6 +26,8 @@ export function processActiveFile(file?: TFile) {
 				const properties = parseVarinoteProperties(varinoteMatch[1]);
 				triggerModal(fileToCheck, getLabel('modalTitle'), getLabel('modalDescription'), varinoteBlockRegex, properties);
 			}
-		});
+		} catch (error) {
+			console.error("Error reading file:", error);
+		}
 	}
 }
