@@ -13,4 +13,26 @@
 			width: 100%;
 		}
 	}
+
+
+	& div {
+		&:has(.tooltip) {
+			position: relative;
+
+			& .setting-item {
+				padding: 1.5em 0;
+			}
+		}
+	}
+
+	& .tooltip {
+		position: absolute;
+		left: unset;
+		padding-right: 0;
+		right: -0.5em;
+		top: 0.5em;
+		background: transparent;
+		color: var(--text-color-default);
+		box-shadow: none;
+	}
 }
