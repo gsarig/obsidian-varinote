@@ -1,10 +1,8 @@
-export function parseVarinoteProperties(content: string): Record<string, {
-	label: string,
-	value: string,
-	type?: string
-}> {
+import {ExtendedPropertyMap} from '../types/records';
+
+export function parseVarinoteProperties(content: string): ExtendedPropertyMap {
 	const propertyRegex = /(\w+)(?:\|(\w+))?::\s*(.+?)(?:\|(.+))?$/gm;
-	const properties: Record<string, { label: string, value: string, type?: string }> = {};
+	const properties: ExtendedPropertyMap = {};
 	let match;
 
 	while ((match = propertyRegex.exec(content)) !== null) {

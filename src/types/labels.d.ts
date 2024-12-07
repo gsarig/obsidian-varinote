@@ -4,6 +4,8 @@ export type Labels = {
 	ctaBtn: string;
 	triggerModal: string;
 	errorModifyFile: string;
+	errorReadingFile: string;
+	errorProcessingFile: string;
 	noBlockFound: string;
 	noActiveFile: string;
 	copy: string;

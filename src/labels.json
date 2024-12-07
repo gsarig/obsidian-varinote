@@ -4,6 +4,8 @@
 	"ctaBtn": "Set the values",
 	"triggerModal": "Set the variable values on this note",
 	"errorModifyFile": "Error modifying the file.",
+	"errorReadingFile": "Error reading the file.",
+	"errorProcessingFile": "Error processing the file.",
 	"noBlockFound": "No Varinote block found on this note.",
 	"noActiveFile": "No active file to trigger the modal for.",
 	"copy": "Copy",

@@ -1,4 +1,4 @@
-import {Plugin, TFile} from 'obsidian';
+import {Plugin, TFile, Notice} from 'obsidian';
 import {VarinoteSettings} from './settings/Settings';
 import {triggerModalCommand} from './commands/triggerModal';
 import {processActiveFile} from './utils/processActiveFile';
@@ -22,26 +22,28 @@ export default class Varinote extends Plugin {
 
 		// Check if layout is already ready
 		if (this.app.workspace.layoutReady) {
-			this.onLayoutReady();
+			await this.onLayoutReady();
 		}
 
 		// Listen for file opening events
-		this.app.workspace.on('file-open', this.onFileOpen);
+		this.registerEvent(this.app.workspace.on('file-open', this.onFileOpen));
 	}
 
-	onunload() {
-		// Detach listeners when the plugin is unloaded
-		this.app.workspace.off('layout-ready', this.onLayoutReady);
-		this.app.workspace.off('file-open', this.onFileOpen);
+	onLayoutReady = async () => {
+		try {
+			await processActiveFile();
+		} catch (error) {
+			new Notice(getLabel('errorProcessingFile'));
+		}
 	}
 
-	onLayoutReady = () => {
-		processActiveFile();
-	}
-
-	onFileOpen = (file: TFile | null) => {
+	onFileOpen = async (file: TFile | null) => {
 		if (file) {
-			processActiveFile(file);
+			try {
+				await processActiveFile(file);
+			} catch (error) {
+				new Notice(getLabel('errorProcessingFile'));
+			}
 		}
 	}
 }

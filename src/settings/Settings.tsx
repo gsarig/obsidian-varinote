@@ -14,9 +14,8 @@ export class VarinoteSettings extends PluginSettingTab {
 		const {containerEl} = this;
 		containerEl.empty();
 
-		new Setting(containerEl).setName('Varinote (Variables in Notes)').setHeading();
 		containerEl.createEl('p', {
-			text: 'Varinote allows you to define variables with optional default values inside your Templates. These variables can then be edited through a modal interface when you add a new note that uses this template.',
+			text: 'Varinote (Variables in Notes) allows you to define variables with optional default values inside your Templates. These variables can then be edited through a modal interface when you add a new note that uses this template.',
 		}).createEl('hr');
 
 		// Resources.
