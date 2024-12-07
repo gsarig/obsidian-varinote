@@ -1,9 +1,10 @@
 import {Labels} from '../types/labels';
 import labelsData from '../labels.json';
+import {FieldString} from '../types/records';
 
 const labels: Labels = labelsData;
 
-export function getLabel(labelKey: keyof Labels, replacements?: Record<string, string>): string {
+export function getLabel(labelKey: keyof Labels, replacements?: FieldString): string {
 	const template = labels[labelKey];
 
 	if (!template) {

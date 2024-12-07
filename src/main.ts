@@ -1,4 +1,4 @@
-import {Plugin, TFile} from 'obsidian';
+import {Plugin, TFile, Notice} from 'obsidian';
 import {VarinoteSettings} from './settings/Settings';
 import {triggerModalCommand} from './commands/triggerModal';
 import {processActiveFile} from './utils/processActiveFile';
@@ -33,7 +33,7 @@ export default class Varinote extends Plugin {
 		try {
 			await processActiveFile();
 		} catch (error) {
-			console.error("Error processing active file on layout ready:", error);
+			new Notice(getLabel('errorProcessingFile'));
 		}
 	}
 
@@ -42,7 +42,7 @@ export default class Varinote extends Plugin {
 			try {
 				await processActiveFile(file);
 			} catch (error) {
-				console.error("Error processing active file:", error);
+				new Notice(getLabel('errorProcessingFile'));
 			}
 		}
 	}

@@ -1,4 +1,4 @@
-import {ExtendedPropertyMap} from "../types/properties";
+import {ExtendedPropertyMap} from '../types/records';
 
 export function parseVarinoteProperties(content: string): ExtendedPropertyMap {
 	const propertyRegex = /(\w+)(?:\|(\w+))?::\s*(.+?)(?:\|(.+))?$/gm;

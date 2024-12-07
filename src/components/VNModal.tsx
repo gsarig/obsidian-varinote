@@ -1,13 +1,13 @@
 import { App, Modal, Setting } from 'obsidian';
 import {createSettingsFromProperties} from '../utils/createSettingsFromProperties'
-import {PropertyMap} from "../types/properties";
+import {PropertyMap, FieldString} from '../types/records';
 
 export class VNModal extends Modal {
 	message: string;
 	description: string;
 	onCloseCallback: () => void;
 	properties: PropertyMap;
-	formValues: Record<string, string>;
+	formValues: FieldString;
 	closeButtonLabel: string;
 
 	constructor(app: App, message: string, description: string, onCloseCallback: () => void, properties: PropertyMap) {

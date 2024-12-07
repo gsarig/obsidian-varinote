@@ -1,2 +1,2 @@
-export type PropertyMap = Record<string, { label: string, value: string }>;
-export type ExtendedPropertyMap = Record<string, { label: string, value: string, type?: string }>;
+export type Property = { label: string, value: string };
+export type PropertyExtended = { label: string, value: string, type?: string };

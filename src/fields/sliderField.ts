@@ -1,12 +1,14 @@
 import {Setting, Notice} from 'obsidian';
 import {getLabel} from '../utils/getLabel';
-import {createTooltip, updateTooltip, showTooltip, hideTooltip} from '../utils/getTooltip';
+import {createTooltip, updateTooltip} from '../utils/getTooltip';
+import {FieldNumber} from '../types/records';
+import {Property} from '../types/properties';
 
 export function createSliderField(
 	contentEl: HTMLElement,
 	key: string,
-	property: { label: string, value: string },
-	formValues: Record<string, number>
+	property: Property,
+	formValues: FieldNumber
 ) {
 	// Validate slider values
 	if (!property.value || property.value.split(',').length < 4) {

@@ -1,4 +1,6 @@
-export function evaluateToggle(expression: string, vars: Record<string, string | number>): string | null {
+import {FieldStringOrNumber} from '../types/records';
+
+export function evaluateToggle(expression: string, vars: FieldStringOrNumber): string | null {
 	const toggleMatch = expression.match(/^(.+?)::([^,]+),([^,]+)$/);
 	if (toggleMatch) {
 		const [, varName, option1, option2] = toggleMatch;

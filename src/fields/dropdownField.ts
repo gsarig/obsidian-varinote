@@ -1,12 +1,13 @@
 import {Notice, Setting} from 'obsidian';
 import {getLabel} from '../utils/getLabel'
-import {DropdownOptions} from "../types/dropdown";
+import {FieldString} from '../types/records';
+import {Property} from '../types/properties';
 
 export function createDropdownField(
 	contentEl: HTMLElement,
 	key: string,
-	property: { label: string, value: string },
-	formValues: Record<string, string>
+	property: Property,
+	formValues: FieldString
 ) {
 	// Check if value is empty or doesn't include a comma.
 	if (!property.value || !property.value.includes(',')) {
@@ -18,7 +19,7 @@ export function createDropdownField(
 
 	// Parse the value to create options.
 	const optionsArray = property.value.split(',').map(option => option.trim());
-	const options: DropdownOptions = {};
+	const options: FieldString = {};
 
 	optionsArray.forEach(option => {
 		// Use the option as both the value and the display name

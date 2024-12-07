@@ -1,10 +1,12 @@
 import {Setting} from 'obsidian';
+import {FieldString} from '../types/records';
+import {Property} from '../types/properties';
 
 export function createToggleField(
 	contentEl: HTMLElement,
 	key: string,
-	property: { label: string, value: string },
-	formValues: Record<string, string>
+	property: Property,
+	formValues: FieldString
 ) {
 	new Setting(contentEl)
 		.setName(property.label)

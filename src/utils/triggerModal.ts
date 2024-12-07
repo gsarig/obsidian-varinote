@@ -2,7 +2,7 @@ import {VNModal} from '../components/VNModal';
 import {replacePlaceholders} from './stringUtils';
 import {TFile, Notice} from 'obsidian';
 import {getLabel} from './getLabel';
-import {PropertyMap} from "../types/properties";
+import {PropertyMap, FieldString} from '../types/records';
 
 export function triggerModal(file: TFile, message: string, description: string, regex: RegExp, properties: PropertyMap) {
 	const modal = new VNModal(this.app, message, description, async () => {
@@ -12,7 +12,6 @@ export function triggerModal(file: TFile, message: string, description: string, 
 
 			await updateFileContent(file, updatedContent);
 		} catch (error) {
-			console.error("Error during file modification:", error);
 			new Notice(getLabel('errorModifyFile'));
 		}
 	}, properties);
@@ -25,7 +24,7 @@ async function readContent(file: TFile): Promise<string> {
 	return await this.app.vault.read(file);
 }
 
-function processContent(content: string, regex: RegExp, formValues: Record<string, string>): string {
+function processContent(content: string, regex: RegExp, formValues: FieldString): string {
 	let updatedContent = content.replace(regex, '').trim();
 	return replacePlaceholders(updatedContent, formValues);
 }

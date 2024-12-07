@@ -1,7 +1,8 @@
 import {evaluateToggle} from './evaluateToggle';
 import {evaluateCalculation} from './evaluateCalculation';
+import {FieldStringOrNumber} from '../types/records';
 
-export function evaluateExpression(expression: string, vars: Record<string, string | number>): string {
+export function evaluateExpression(expression: string, vars: FieldStringOrNumber): string {
 	const maybeToggle = evaluateToggle(expression, vars);
 	if (maybeToggle !== null) {
 		return maybeToggle;

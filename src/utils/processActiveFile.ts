@@ -1,4 +1,4 @@
-import {MarkdownView, TFile} from 'obsidian';
+import {MarkdownView, TFile, Notice} from 'obsidian';
 import {parseVarinoteProperties} from './parser';
 import {getTemplateFolderPath} from './templateUtils';
 import {triggerModal} from './triggerModal';
@@ -27,7 +27,7 @@ export async function processActiveFile(file?: TFile) {
 				triggerModal(fileToCheck, getLabel('modalTitle'), getLabel('modalDescription'), varinoteBlockRegex, properties);
 			}
 		} catch (error) {
-			console.error("Error reading file:", error);
+			new Notice(getLabel('errorReadingFile'));
 		}
 	}
 }
