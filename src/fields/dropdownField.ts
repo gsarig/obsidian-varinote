@@ -27,6 +27,9 @@ export function createDropdownField(
 
 	const firstOption = optionsArray.length > 0 ? optionsArray[0] : '';
 
+	// Ensure the default selection is stored
+	formValues[key] = firstOption;
+
 	new Setting(contentEl)
 		.setName(property.label)
 		.addDropdown(dropdown => {
