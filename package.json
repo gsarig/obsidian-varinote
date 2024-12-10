@@ -1,6 +1,6 @@
 {
 	"name": "varinote",
-	"version": "1.0.4",
+	"version": "1.0.5",
 	"description": "Add variables in Templates and set their values on-the-fly during the Note creation.",
 	"main": "dist/main.js",
 	"scripts": {
