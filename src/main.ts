@@ -7,7 +7,6 @@ import '../styles.css';
 
 // noinspection JSUnusedGlobalSymbols
 export default class Varinote extends Plugin {
-	private pluginLoadTime: number;
 
 	async onload() {
 
@@ -18,28 +17,22 @@ export default class Varinote extends Plugin {
 		this.addCommand({
 			id: 'trigger-modal',
 			name: getLabel('triggerModal'),
-			callback: () => triggerModalCommand(),
+			callback: (): void => triggerModalCommand(),
 		});
 
-		// Capture the current session time.
-		this.pluginLoadTime = Date.now();
-
-		this.registerEvent(this.app.vault.on('create', (file: TAbstractFile) => {
-			this.handleFileCreate(file);
-		}));
+		// Register vault file creation listener once layout is ready.
+		this.app.workspace.onLayoutReady(() => {
+			this.registerEvent(this.app.vault.on('create', (file: TAbstractFile) => {
+				this.handleFileCreate(file);
+			}));
+		});
 	}
 
-	private async handleFileCreate(file: TAbstractFile) {
-		if (file instanceof TFile) {
-			const fileStats = await this.app.vault.adapter.stat(file.path);
-			// Only process files created after the plugin load time.
-			if (fileStats && fileStats.ctime > this.pluginLoadTime) {
-				await this.runProcessActiveFile(file);
-			}
+	private async handleFileCreate(file: TAbstractFile): Promise<void> {
+		if (!(file instanceof TFile)) {
+			new Notice(getLabel('errorProcessingFile'));
+			return;
 		}
-	}
-
-	private async runProcessActiveFile(file: TFile): Promise<void> {
 		try {
 			await processActiveFile(file);
 		} catch (error) {
