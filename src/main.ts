@@ -1,5 +1,4 @@
 import {Plugin, TFile, Notice, TAbstractFile} from 'obsidian';
-import {VarinoteSettings} from './settings/Settings';
 import {triggerModalCommand} from './commands/triggerModal';
 import {processActiveFile} from './utils/processActiveFile';
 import {getLabel} from './utils/getLabel';
@@ -9,9 +8,6 @@ import '../styles.css';
 export default class Varinote extends Plugin {
 
 	async onload() {
-
-		// Register the settings tab
-		this.addSettingTab(new VarinoteSettings(this.app, this));
 
 		// Register a custom command to trigger the modal.
 		this.addCommand({

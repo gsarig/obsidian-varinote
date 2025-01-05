@@ -1,9 +1,9 @@
 {
 	"id": "varinote",
 	"name": "Varinote",
-	"version": "1.0.8",
+	"version": "1.0.9",
 	"minAppVersion": "1.7.7",
-	"description": "Add variables in Templates and set their values on-the-fly during the Note creation.",
+	"description": "Add variables in templates and set their values on-the-fly during the note creation.",
 	"author": "Giorgos Sarigiannidis",
 	"authorUrl": "https://github.com/gsarig",
 	"fundingUrl": "https://www.paypal.com/donate/?hosted_button_id=CZSC6KDHD3WNC",
