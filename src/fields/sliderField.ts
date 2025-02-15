@@ -1,6 +1,5 @@
 import {Setting, Notice} from 'obsidian';
 import {getLabel} from '../utils/getLabel';
-import {createTooltip, updateTooltip} from '../utils/getTooltip';
 import {FieldNumber} from '../types/records';
 import {Property} from '../types/properties';
 
@@ -31,30 +30,31 @@ export function createSliderField(
 		new Notice(getLabel('sliderFieldOutOfRange', {label: property.label}));
 	}
 
-	const sliderContainer = document.createElement('div'); // Unique container for the slider and tooltip
+	const sliderContainer = document.createElement('div');
+	sliderContainer.style.position = 'relative';
 	contentEl.appendChild(sliderContainer);
+
+	let currentTooltip: HTMLElement | null = null;
 
 	new Setting(sliderContainer)
 		.setName(property.label)
 		.addSlider(slider => {
-			slider.setLimits(min, max, step);
-			slider.setValue(defaultValue);
+			const inputEl = sliderContainer.querySelector('input[type="range"]');
+			if (!inputEl) return;
 
-			// Create a tooltip for each slider
-			const tooltip = createTooltip(sliderContainer, defaultValue);
+			currentTooltip = document.createElement('div');
+			currentTooltip.className = 'slider-tooltip';
+			currentTooltip.textContent = defaultValue.toString();
+			sliderContainer.appendChild(currentTooltip);
 
-			slider.onChange(value => {
-				formValues[key] = value;
-			});
-
-			// Use the container to query the specific range input
-			const inputElement = sliderContainer.querySelector('input[type="range"]');
-
-			if (inputElement) {
-				inputElement.addEventListener('input', (event: MouseEvent) => {
-					const value = parseFloat((event.target as HTMLInputElement).value);
-					updateTooltip(tooltip, event, value);
+			return slider
+				.setLimits(min, max, step)
+				.setValue(defaultValue)
+				.onChange((value: number) => {
+					formValues[key] = value;
+					if (currentTooltip) {
+						currentTooltip.textContent = value.toString();
+					}
 				});
-			}
 		});
 }
