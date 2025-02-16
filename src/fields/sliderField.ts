@@ -31,30 +31,19 @@ export function createSliderField(
 	}
 
 	const sliderContainer = document.createElement('div');
-	sliderContainer.style.position = 'relative';
 	contentEl.appendChild(sliderContainer);
 
-	let currentTooltip: HTMLElement | null = null;
-
-	new Setting(sliderContainer)
+	const setting = new Setting(sliderContainer)
 		.setName(property.label)
+		.setDesc(defaultValue.toString())
+		.setClass('setting-item-slider')
 		.addSlider(slider => {
-			const inputEl = sliderContainer.querySelector('input[type="range"]');
-			if (!inputEl) return;
-
-			currentTooltip = document.createElement('div');
-			currentTooltip.className = 'slider-tooltip';
-			currentTooltip.textContent = defaultValue.toString();
-			sliderContainer.appendChild(currentTooltip);
-
 			return slider
 				.setLimits(min, max, step)
 				.setValue(defaultValue)
 				.onChange((value: number) => {
 					formValues[key] = value;
-					if (currentTooltip) {
-						currentTooltip.textContent = value.toString();
-					}
+					setting.setDesc(value.toString());
 				});
 		});
 }

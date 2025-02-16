@@ -14,21 +14,19 @@
 		}
 	}
 
-	.setting-item {
-		&:has(.slider) {
-			max-width: calc(100% - 2em);
+	& .setting-item-slider {
+		& .setting-item-name {
+			display: inline;
+		}
+
+		& .setting-item-description {
+			display: inline-block;
+			font-weight: bold;
+			font-size: var(--font-ui-medium);
+			&::before {
+				content: ": ";
+				font-weight: normal;
+			}
 		}
 	}
-
-	& .slider-tooltip {
-		position: absolute;
-		display: block;
-		padding-right: 0;
-		left: unset;
-		right: 0.2em;
-		font-size: 0.9em;
-		top: calc(50% - 1.1em);
-		pointer-events: none;
-	}
-
 }
