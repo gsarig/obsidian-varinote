@@ -14,25 +14,21 @@
 		}
 	}
 
-
-	& div {
-		&:has(.tooltip) {
-			position: relative;
-
-			& .setting-item {
-				padding: 1.5em 0;
-			}
+	.setting-item {
+		&:has(.slider) {
+			max-width: calc(100% - 2em);
 		}
 	}
 
-	& .tooltip {
+	& .slider-tooltip {
 		position: absolute;
-		left: unset;
+		display: block;
 		padding-right: 0;
-		right: -0.5em;
-		top: 0.5em;
-		background: transparent;
-		color: var(--text-color-default);
-		box-shadow: none;
+		left: unset;
+		right: 0.2em;
+		font-size: 0.9em;
+		top: calc(50% - 1.1em);
+		pointer-events: none;
 	}
+
 }
