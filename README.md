@@ -126,11 +126,22 @@ If they are still raw, it's because you forgot to turn the heat on.
 ![varinote-full-result.png](.github/assets/varinote-full-result.png)
 
 ## How to install
+Currently, there are 3 ways to install the plugin:
 
+### Standard install (recommended)
+1. Open the Settings panel in Obsidian, and go to the "Community plugins" section.
+2. Click the "Browse" button and search for "Varinote".
+3. Install and enable the plugin.
+
+### Using BRAT
+1. Install the [BRAT](https://github.com/TfTHacker/obsidian42-brat) plugin.
+2. Add the Varinote repository to BRAT: `gsarig/obsidian-varinote`.
+
+### Manually
 1. Downlaod `main.js`, `styles.css`, `manifest.json` files from the [latest release](https://github.com/gsarig/obsidian-varinote/releases).
 2. Create new folder inside your vault's `/.obsidian/plugins/` named  `varinote` . If plugins folder doesn't exist, then create it manually. 
 3. Move downloaded files into the `/varinote` folder. 
-4. Enable the plugin in ObsidianMD. 
+4. Enable the plugin in ObsidianMD.
 
 ## Feedback and Support
 
