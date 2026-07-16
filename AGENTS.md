@@ -42,6 +42,7 @@ npm install       # install deps
 npm run dev       # watch build into the plugin folder
 npm run build     # tsc typecheck + production bundle
 npm test          # run the Vitest unit suite
+npm run test:e2e  # run the wdio end-to-end suite (drives a real Obsidian)
 ```
 
 ## Testing
