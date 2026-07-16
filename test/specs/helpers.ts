@@ -1,6 +1,7 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
 import { $, browser } from "@wdio/globals";
+import labels from "../../src/labels.json";
 
 const MODAL_SELECTOR = ".varinote-modal-content";
 
@@ -145,7 +146,7 @@ export async function setSliderField(label: string, value: number): Promise<void
 
 // Click the modal's CTA button and wait for it to close.
 export async function closeModal(): Promise<void> {
-	await safeClick(await $(MODAL_SELECTOR).$("button=Set the values"));
+	await safeClick(await $(MODAL_SELECTOR).$(`button=${labels.ctaBtn}`));
 	await $(MODAL_SELECTOR).waitForExist({ reverse: true, timeout: 5000 });
 }
 
