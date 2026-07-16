@@ -71,9 +71,36 @@ export async function modalVisible(): Promise<boolean> {
 	return await $(MODAL_SELECTOR).isExisting();
 }
 
-// Wait for the modal to appear (fails the test if it never does).
+// Wait for the modal to appear and settle (fails the test if it never does).
+// The settle step waits for the modal's position to stop changing: on older
+// Obsidian/Electron versions (v1.7.7 ships Chrome 114) clicking during the
+// open animation fails with "element click intercepted".
 export async function waitForModal(timeout = 5000): Promise<void> {
-	await $(MODAL_SELECTOR).waitForExist({ timeout });
+	const modal = $(MODAL_SELECTOR);
+	await modal.waitForExist({ timeout });
+	await browser.waitUntil(
+		async () => {
+			const before = await modal.getLocation();
+			await browser.pause(100);
+			const after = await modal.getLocation();
+			return before.x === after.x && before.y === after.y;
+		},
+		{ timeout, timeoutMsg: "modal never stopped moving" },
+	);
+}
+
+// Click that tolerates old-Electron clickability quirks: try a real click,
+// fall back to a DOM click only when Chrome reports the click intercepted.
+async function safeClick(el: WebdriverIO.Element): Promise<void> {
+	try {
+		await el.click();
+	} catch (error) {
+		if (String(error).includes("click intercepted")) {
+			await browser.execute((node) => (node as unknown as HTMLElement).click(), el);
+		} else {
+			throw error;
+		}
+	}
 }
 
 // Give any async modal-open path a chance to run, then assert it did not.
@@ -98,7 +125,7 @@ export async function setToggleField(label: string, on: boolean): Promise<void> 
 	const input = await settingControl(label);
 	const isOn = await input.isSelected();
 	if (isOn !== on) {
-		await input.click();
+		await safeClick(input);
 	}
 }
 
@@ -118,7 +145,7 @@ export async function setSliderField(label: string, value: number): Promise<void
 
 // Click the modal's CTA button and wait for it to close.
 export async function closeModal(): Promise<void> {
-	await $(MODAL_SELECTOR).$("button=Set the values").click();
+	await safeClick(await $(MODAL_SELECTOR).$("button=Set the values"));
 	await $(MODAL_SELECTOR).waitForExist({ reverse: true, timeout: 5000 });
 }
 
