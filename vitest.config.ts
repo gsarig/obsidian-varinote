@@ -1,8 +1,9 @@
 import { defineConfig } from 'vitest/config';
 import { fileURLToPath } from 'node:url';
 
-// The tested logic imports the `obsidian` module. Alias it to a light mock so
-// the unit suite runs without a real Obsidian runtime.
+// Varinote's currently unit-tested logic is pure and does not import the
+// `obsidian` module; the alias to a light mock is kept for template parity
+// with Sentinel and for any future test that touches obsidian-importing code.
 export default defineConfig({
 	resolve: {
 		alias: {
