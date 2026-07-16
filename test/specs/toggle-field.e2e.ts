@@ -1,10 +1,11 @@
 import { expect } from "@wdio/globals";
 import { describe, it, beforeEach } from "mocha";
 import { obsidianPage } from "wdio-obsidian-service";
-import { createNoteFromTemplate, waitForModal, setToggleField, closeModal, noteContent } from "./helpers.js";
+import { createNoteFromTemplate, waitForModal, setToggleField, closeModal, noteContent, dismissOpenModals } from "./helpers.js";
 
 describe("Toggle field", function () {
 	beforeEach(async function () {
+		await dismissOpenModals();
 		await obsidianPage.resetVault("test/vaults/simple");
 	});
 

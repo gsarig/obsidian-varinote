@@ -1,7 +1,7 @@
 import { browser, expect } from "@wdio/globals";
 import { describe, it, beforeEach } from "mocha";
 import { obsidianPage } from "wdio-obsidian-service";
-import { createNote, openNote, waitForModal, closeModal, noteContent, executeObsidianCommand } from "./helpers.js";
+import { createNote, openNote, waitForModal, closeModal, noteContent, executeObsidianCommand, dismissOpenModals } from "./helpers.js";
 
 // Append a varinote block to an already-existing note, as if it were pasted
 // or inserted via a templating plugin like Templater after note creation.
@@ -21,6 +21,7 @@ async function insertVarinoteBlock(notePath: string, block: string): Promise<voi
 
 describe("Command flow", function () {
 	beforeEach(async function () {
+		await dismissOpenModals();
 		await obsidianPage.resetVault("test/vaults/simple");
 	});
 

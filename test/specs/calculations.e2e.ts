@@ -1,10 +1,11 @@
 import { expect } from "@wdio/globals";
 import { describe, it, beforeEach } from "mocha";
 import { obsidianPage } from "wdio-obsidian-service";
-import { createNoteFromTemplate, waitForModal, setTextField, closeModal, noteContent } from "./helpers.js";
+import { createNoteFromTemplate, waitForModal, setTextField, closeModal, noteContent, dismissOpenModals } from "./helpers.js";
 
 describe("Calculations with a text field", function () {
 	beforeEach(async function () {
+		await dismissOpenModals();
 		await obsidianPage.resetVault("test/vaults/simple");
 	});
 

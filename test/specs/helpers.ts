@@ -1,6 +1,6 @@
 import * as fs from "node:fs";
 import * as path from "node:path";
-import { $, browser } from "@wdio/globals";
+import { $, $$, browser } from "@wdio/globals";
 import labels from "../../src/labels.json";
 
 const MODAL_SELECTOR = ".varinote-modal-content";
@@ -90,9 +90,12 @@ export async function waitForModal(timeout = 5000): Promise<void> {
 	);
 }
 
-// Click that tolerates old-Electron clickability quirks: try a real click,
-// fall back to a DOM click only when Chrome reports the click intercepted.
+// Click that tolerates old-Electron clickability quirks. wdio's automatic
+// scroll-into-view uses a CDP command Chrome 114 (Obsidian 1.7.7) lacks, so
+// scroll via the DOM first, then try a real click, falling back to a DOM
+// click only when Chrome reports the click intercepted.
 async function safeClick(el: WebdriverIO.Element): Promise<void> {
+	await browser.execute((node) => (node as unknown as HTMLElement).scrollIntoView({ block: "center" }), el);
 	try {
 		await el.click();
 	} catch (error) {
@@ -102,6 +105,18 @@ async function safeClick(el: WebdriverIO.Element): Promise<void> {
 			throw error;
 		}
 	}
+}
+
+// Force-close any modal left open by a previous (failed or retried) test, so
+// stacked modals cannot contaminate the next run. Call BEFORE resetVault so
+// any onClose side-effect writes get wiped by the reset.
+export async function dismissOpenModals(): Promise<void> {
+	await browser.executeObsidian(() => {
+		document
+			.querySelectorAll<HTMLElement>(".modal-container .modal-close-button")
+			.forEach((btn) => btn.click());
+	});
+	await browser.pause(100);
 }
 
 // Give any async modal-open path a chance to run, then assert it did not.
@@ -144,9 +159,13 @@ export async function setSliderField(label: string, value: number): Promise<void
 	);
 }
 
-// Click the modal's CTA button and wait for it to close.
+// Click the topmost modal's CTA button and wait for all modals to close.
+// Targeting the LAST match matters: if a retried test stacked a second
+// modal, the newest one is the one this test opened.
 export async function closeModal(): Promise<void> {
-	await safeClick(await $(MODAL_SELECTOR).$(`button=${labels.ctaBtn}`));
+	const modals = await $$(MODAL_SELECTOR);
+	const topmost = modals[modals.length - 1];
+	await safeClick(await topmost.$(`button=${labels.ctaBtn}`));
 	await $(MODAL_SELECTOR).waitForExist({ reverse: true, timeout: 5000 });
 }
 

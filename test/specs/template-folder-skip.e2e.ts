@@ -1,10 +1,11 @@
 import { expect } from "@wdio/globals";
 import { describe, it, beforeEach } from "mocha";
 import { obsidianPage } from "wdio-obsidian-service";
-import { createNote, assertNoModalAppears, noteContent } from "./helpers.js";
+import { createNote, assertNoModalAppears, noteContent, dismissOpenModals } from "./helpers.js";
 
 describe("Template-folder skip", function () {
 	beforeEach(async function () {
+		await dismissOpenModals();
 		await obsidianPage.resetVault("test/vaults/simple");
 	});
 
