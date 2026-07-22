@@ -9,9 +9,12 @@ export async function processActiveFile(app: App, file?: TFile) {
 	const fileToCheck = file || activeMarkdownView?.file;
 
 	if (fileToCheck) {
-		const templateFolder = getTemplateFolderPath(app);
+		// Strip any trailing slash so the boundary check below stays exact.
+		const templateFolder = getTemplateFolderPath(app)?.replace(/\/+$/, '');
 
-		if (templateFolder && fileToCheck.path.startsWith(templateFolder)) {
+		// Match on the folder boundary so a sibling folder with the same
+		// prefix (e.g. "Templates2") is not treated as the Templates folder.
+		if (templateFolder && fileToCheck.path.startsWith(templateFolder + '/')) {
 			// Skipping template file.
 			return;
 		}
