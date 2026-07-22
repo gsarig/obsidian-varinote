@@ -5,5 +5,5 @@ export function replacePlaceholders(content: string, properties: FieldStringOrNu
 	// noinspection RegExpRedundantEscape
 	const placeholderRegex = /\{\{\$(.+?)\}\}/g;
 
-	return content.replace(placeholderRegex, (_, expr) => evaluateExpression(expr, properties));
+	return content.replace(placeholderRegex, (_, expr: string) => evaluateExpression(expr, properties));
 }

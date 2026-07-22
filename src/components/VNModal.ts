@@ -5,12 +5,12 @@ import {PropertyMap, FieldString} from '../types/records';
 export class VNModal extends Modal {
 	message: string;
 	description: string;
-	onCloseCallback: () => void;
+	onCloseCallback: () => void | Promise<void>;
 	properties: PropertyMap;
 	formValues: FieldString;
 	closeButtonLabel: string;
 
-	constructor(app: App, message: string, description: string, onCloseCallback: () => void, properties: PropertyMap) {
+	constructor(app: App, message: string, description: string, onCloseCallback: () => void | Promise<void>, properties: PropertyMap) {
 		super(app);
 		this.message = message;
 		this.description = description;
@@ -62,6 +62,6 @@ export class VNModal extends Modal {
 	onClose() {
 		const { contentEl } = this;
 		contentEl.empty();
-		this.onCloseCallback();
+		void this.onCloseCallback();
 	}
 }
