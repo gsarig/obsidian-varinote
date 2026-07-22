@@ -14,11 +14,7 @@ export function triggerModal(app: App, file: TFile, message: string, description
 				if (!modal?.formValues) {
 					return fileContents;
 				}
-				const updatedContent = processContent(fileContents, regex, modal.formValues);
-				if (!updatedContent) {
-					return fileContents;
-				}
-				return fileContents.replace(fileContents, updatedContent);
+				return processContent(fileContents, regex, modal.formValues);
 			});
 		} catch {
 			new Notice(getLabel('errorModifyFile'));

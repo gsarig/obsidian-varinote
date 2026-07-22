@@ -1,7 +1,7 @@
 import { expect } from "@wdio/globals";
 import { describe, it, beforeEach } from "mocha";
 import { obsidianPage } from "wdio-obsidian-service";
-import { createNoteFromTemplate, waitForModal, closeModal, noteContent, dismissOpenModals } from "./helpers.js";
+import { createNote, createNoteFromTemplate, waitForModal, closeModal, noteContent, dismissOpenModals } from "./helpers.js";
 
 describe("Core flow", function () {
 	beforeEach(async function () {
@@ -22,5 +22,17 @@ describe("Core flow", function () {
 		expect(content).toContain("Take **4** eggs");
 		expect(content).toContain("Boil them for **10 minutes**");
 		expect(content).toContain("Bon appetit!");
+	});
+
+	it("strips the block from a note containing only a varinote block", async function () {
+		await createNote("BlockOnly.md", "```varinote\nname::Name|Value\n```\n");
+		await waitForModal();
+
+		await closeModal();
+
+		// The stripped-and-trimmed result is legitimately empty; it must not
+		// be treated as a failure that leaves the block in place.
+		const content = await noteContent("BlockOnly.md");
+		expect(content).toBe("");
 	});
 });
