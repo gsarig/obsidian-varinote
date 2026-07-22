@@ -19,11 +19,6 @@ Review for **correctness, security, and reliability**, in that order.
 - **Speculative edge cases**: only flag an edge case that is realistically reachable given the surrounding code.
 - **Hedged suggestions** ("consider", "could", "might"): only raise them when they address a real defect.
 
-## Known issues already tracked (do not re-flag)
-
-- **`evaluateCalculation` uses `new Function` on user-influenced strings.** Known, documented, and tracked with a planned follow-up (safe arithmetic parser vs. accept-and-document decision).
-- **Several utils call `this.app` in unbound free functions**, resolving through the deprecated global `app`. Known and tracked; the fix (threading the `App` instance) is a planned follow-up.
-
 ## Known-intentional decisions (do not flag)
 
 - **Node 24 in CI** is the active Node.js LTS line (since October 2025).

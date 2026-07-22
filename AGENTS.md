@@ -15,7 +15,7 @@ The runtime flow, following the code:
 
 1. `src/main.ts` -> `onload()` registers the `trigger-modal` command and, once the workspace layout is ready, a `vault.on('create')` listener (via `registerEvent`, no leak).
 2. New-file creation and the command both funnel into the same pair of steps: `src/utils/processActiveFile.ts` (create-event path) or `src/commands/triggerModal.ts` (command path, works on the active file) find a ```` ```varinote ```` block in the note via regex, skip it if the file lives in the configured Templates folder (`processActiveFile` only; the command has no such check), then call `parser.ts`'s `parseVarinoteProperties` to extract `name|type::Label|Default` properties.
-3. `src/utils/triggerModal.ts` opens `VNModal` (`src/components/VNModal.tsx`) seeded with the parsed properties. `createSettingsFromProperties` (`src/utils/createSettingsFromProperties.ts`) dispatches each property to a field renderer under `src/fields/` (text, dropdown, toggle, slider) based on `property.type`, using plain Obsidian `Setting` API, not React JSX (see note below).
+3. `src/utils/triggerModal.ts` opens `VNModal` (`src/components/VNModal.ts`) seeded with the parsed properties. `createSettingsFromProperties` (`src/utils/createSettingsFromProperties.ts`) dispatches each property to a field renderer under `src/fields/` (text, dropdown, toggle, slider) based on `property.type`, using the plain Obsidian `Setting` API.
 4. On modal close, `triggerModal`'s callback strips the varinote block from the note and calls `stringUtils.ts`'s `replacePlaceholders`, which runs every `{{$var}}` placeholder through `evaluateExpression.ts`. That function tries `evaluateToggle.ts` first (`{{$var::a,b}}` syntax), then falls back to variable substitution plus `evaluateCalculation.ts` for arithmetic (`{{$var * 2}}`).
 
 **Key modules:**
@@ -24,12 +24,10 @@ The runtime flow, following the code:
 |---|---|
 | Property parsing | `src/utils/parser.ts` (`name\|type::Label\|Default` syntax) |
 | Template-folder detection | `src/utils/templateUtils.ts` (`getTemplateFolderPath`, reads the core Templates plugin's configured folder) |
-| Modal + field rendering | `src/components/VNModal.tsx`, `src/utils/createSettingsFromProperties.ts`, `src/fields/*.ts` |
+| Modal + field rendering | `src/components/VNModal.ts`, `src/utils/createSettingsFromProperties.ts`, `src/fields/*.ts` |
 | Placeholder substitution chain | `src/utils/stringUtils.ts` -> `evaluateExpression.ts` -> `evaluateToggle.ts` / `evaluateCalculation.ts` |
 | Content mutation | `src/utils/triggerModal.ts` (strips the varinote block, applies substitutions, writes via `vault.process`) |
 | User-facing strings | `src/labels.json` (read via `src/utils/getLabel.ts`; never hardcode strings) |
-
-**Note on React:** `package.json` depends on `react`/`react-dom` and `tsconfig.json` sets `"jsx": "react-jsx"`, but no file in `src/` imports React or uses JSX; the modal and fields are built entirely with Obsidian's `Modal`/`Setting` API. Treat this as an unused dependency, not an architectural pattern to follow.
 
 ## Environment and tooling
 
@@ -41,6 +39,7 @@ The runtime flow, following the code:
 npm install       # install deps
 npm run dev       # watch build into the plugin folder
 npm run build     # tsc typecheck + production bundle
+npm run lint      # ESLint (eslint-plugin-obsidianmd + typescript-eslint)
 npm test          # run the Vitest unit suite
 npm run test:e2e  # run the wdio end-to-end suite (drives a real Obsidian)
 ```
