@@ -51,16 +51,19 @@ export class VNModal extends Modal {
 				}));
 
 		// Add event listener for Enter key to trigger the button
-		contentEl.addEventListener('keydown', (event) => {
-			if (event.key === 'Enter') {
-				event.preventDefault();  // Prevent default form submission behavior
-				this.close();
-			}
-		});
+		contentEl.addEventListener('keydown', this.handleKeydown);
 	}
+
+	handleKeydown = (event: KeyboardEvent): void => {
+		if (event.key === 'Enter') {
+			event.preventDefault();  // Prevent default form submission behavior
+			this.close();
+		}
+	};
 
 	onClose() {
 		const { contentEl } = this;
+		contentEl.removeEventListener('keydown', this.handleKeydown);
 		contentEl.empty();
 		void this.onCloseCallback();
 	}
