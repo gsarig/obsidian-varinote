@@ -30,8 +30,13 @@ export function createSliderField(
 		new Notice(getLabel('sliderFieldOutOfRange', {label: property.label}));
 	}
 
-	const sliderContainer = document.createElement('div');
-	contentEl.appendChild(sliderContainer);
+	// Seed the default so an untouched slider substitutes its default value
+	// (mirrors the dropdown's default handling). Previously this only worked
+	// by accident: the raw "min,max,step,default" string reached the eval'd
+	// calculation, where the JS comma operator returned the last value.
+	formValues[key] = defaultValue;
+
+	const sliderContainer = contentEl.createDiv();
 
 	const setting = new Setting(sliderContainer)
 		.setName(property.label)

@@ -27,8 +27,8 @@ describe("Calculations with a text field", function () {
 		await setTextField("Number", "abc");
 		await closeModal();
 
-		// evaluateCalculation's `new Function` throws on "abc + 10" (abc is an
-		// undefined identifier), so it falls back to the substituted-but-not-
+		// evaluateCalculation's arithmetic parser rejects "abc + 10" (abc is
+		// not a number), so it falls back to the substituted-but-not-
 		// calculated string rather than the original "{{$number + 10}}" syntax.
 		const content = await noteContent("Calc.md");
 		expect(content).toContain("Result: abc + 10");
