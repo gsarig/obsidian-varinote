@@ -31,7 +31,7 @@ The runtime flow, following the code:
 
 ## Environment and tooling
 
-- **Node:** current LTS (18+).
+- **Node:** current LTS (22+). Node 18 and 20 are both end-of-life; CI runs 24.x.
 - **Package manager:** npm.
 - **Bundler:** esbuild (`esbuild.config.mjs`).
 
