@@ -12,7 +12,6 @@
     "isolatedModules": true,
     "strictNullChecks": true,
     "resolveJsonModule": true,
-    "jsx": "react-jsx",
     "lib": [
       "DOM",
       "ES5",

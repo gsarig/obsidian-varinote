@@ -13,13 +13,15 @@ export default class Varinote extends Plugin {
 		this.addCommand({
 			id: 'trigger-modal',
 			name: getLabel('triggerModal'),
-			callback: (): void => triggerModalCommand(),
+			callback: (): void => {
+				void triggerModalCommand(this.app);
+			},
 		});
 
 		// Register vault file creation listener once layout is ready.
 		this.app.workspace.onLayoutReady(() => {
 			this.registerEvent(this.app.vault.on('create', (file: TAbstractFile) => {
-				this.handleFileCreate(file);
+				void this.handleFileCreate(file);
 			}));
 		});
 	}
@@ -30,8 +32,8 @@ export default class Varinote extends Plugin {
 			return;
 		}
 		try {
-			await processActiveFile(file);
-		} catch (error) {
+			await processActiveFile(this.app, file);
+		} catch {
 			new Notice(getLabel('errorProcessingFile'));
 		}
 	}

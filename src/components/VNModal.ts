@@ -5,12 +5,12 @@ import {PropertyMap, FieldString} from '../types/records';
 export class VNModal extends Modal {
 	message: string;
 	description: string;
-	onCloseCallback: () => void;
+	onCloseCallback: () => void | Promise<void>;
 	properties: PropertyMap;
 	formValues: FieldString;
 	closeButtonLabel: string;
 
-	constructor(app: App, message: string, description: string, onCloseCallback: () => void, properties: PropertyMap) {
+	constructor(app: App, message: string, description: string, onCloseCallback: () => void | Promise<void>, properties: PropertyMap) {
 		super(app);
 		this.message = message;
 		this.description = description;
@@ -51,17 +51,20 @@ export class VNModal extends Modal {
 				}));
 
 		// Add event listener for Enter key to trigger the button
-		contentEl.addEventListener('keydown', (event) => {
-			if (event.key === 'Enter') {
-				event.preventDefault();  // Prevent default form submission behavior
-				this.close();
-			}
-		});
+		contentEl.addEventListener('keydown', this.handleKeydown);
 	}
+
+	handleKeydown = (event: KeyboardEvent): void => {
+		if (event.key === 'Enter') {
+			event.preventDefault();  // Prevent default form submission behavior
+			this.close();
+		}
+	};
 
 	onClose() {
 		const { contentEl } = this;
+		contentEl.removeEventListener('keydown', this.handleKeydown);
 		contentEl.empty();
-		this.onCloseCallback();
+		void this.onCloseCallback();
 	}
 }
