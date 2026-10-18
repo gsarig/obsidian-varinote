@@ -51,6 +51,8 @@ Two layers. Run both before pushing.
 1. **Unit tests (`npm test`, Vitest).** Cover the pure logic where regressions actually happen: property parsing, toggle/calculation/expression evaluation, placeholder replacement. These modules import no `obsidian`, so they run without a mock.
 2. **In-app verification / E2E (wdio).** Drive a real Obsidian instance against a fixture vault: create a note from a template, confirm the modal appears, fill fields, confirm substitution and block-stripping in the resulting note.
 
+When you add or change an e2e test, run it several times locally on both versions CI tests (`OBSIDIAN_VERSIONS="earliest/earliest latest/latest"`) before calling it passing. CI retries a failed test twice, which hides flakiness; local runs do not retry, so a single green run is not evidence.
+
 ## Manifest rules (`manifest.json`)
 
 - Never change `id` after release. Treat it as a stable API.
